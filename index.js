@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -66,6 +67,8 @@ app.post("/api/add-song", (req, res) => {
   res.status(201);
 });
 
+app.use(express.static(path.join(__dirname, "client")));
+
 app.listen(port, () => {
-  console.log("Server is running on port "+port);
+  console.log("Server is running on port " + port);
 });
