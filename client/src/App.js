@@ -7,17 +7,28 @@ import NavBar from "./components/NavBar";
 
 const App = () => {
   const [isHome, setIsHome] = useState(true);
-  const [message, setMessage] = useState([]);
+  const [songs, setSongs] = useState([]);
+  const [filteredSong, setFilteredSong] = useState(songs);
 
   useEffect(() => {
     async function fetchData() {
       const res = await axios.get("/api");
-      setMessage(res.data);
+      setSongs(res.data);
+      setFilteredSong(res.data);
       console.log(res.data);
     }
 
     fetchData();
   }, []);
+
+  const onSearchSubmit = (search) => {
+    const filteredSong = songs.filter((song) =>
+      song.title.toLowerCase().indexOf(search.toLowerCase()) !== -1
+        ? true
+        : false
+    );
+    setFilteredSong(filteredSong);
+  };
 
   const onAddSongClick = (bool) => {
     setIsHome(bool);
@@ -25,8 +36,8 @@ const App = () => {
 
   return (
     <>
-      <NavBar onClickHandler={onAddSongClick} />
-      {isHome && <SongLists songs={message} />}
+      <NavBar onClickHandler={onAddSongClick} onSubmit={onSearchSubmit} />
+      {isHome && <SongLists songs={filteredSong} />}
       {!isHome && <AddSong />}
     </>
   );

@@ -7,6 +7,7 @@ const AddSong = (props) => {
   const [enteredArtist, setEnteredArtist] = useState("");
   const [enteredSong, setEnteredSong] = useState("");
   const [enteredYear, setEnteredYear] = useState("");
+  const [enteredImage, setEnteredImage] = useState("");
   const [newSong, setNewSong] = useState({});
 
   useEffect(() => {
@@ -26,6 +27,9 @@ const AddSong = (props) => {
   const yearChangeHandler = (event) => {
     setEnteredYear(event.target.value);
   };
+  const imageChangeHandler = (event) => {
+    setEnteredImage(event.target.value);
+  };
 
   const submitHandler = (event) => {
 
@@ -33,8 +37,7 @@ const AddSong = (props) => {
       title: enteredSong,
       artist: enteredArtist,
       year: enteredYear,
-      imageUrl:
-        "https://i1.sndcdn.com/artworks-000677174977-d6v04a-t500x500.jpg",
+      imageUrl: enteredImage,
     };
     setNewSong(song);
 
@@ -54,6 +57,7 @@ const AddSong = (props) => {
             value={enteredSong}
             type="text"
             placeholder="Enter song name"
+			required
           />
           <Form.Text className="text-muted">
             We'll never share your email with anyone else.
@@ -67,6 +71,7 @@ const AddSong = (props) => {
             value={enteredArtist}
             type="text"
             placeholder="Artist"
+			required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicYear">
@@ -76,6 +81,17 @@ const AddSong = (props) => {
             value={enteredYear}
             type="text"
             placeholder="Realesed Year"
+			required
+          />
+        </Form.Group>
+		<Form.Group className="mb-3" controlId="formBasicImage">
+          <Form.Label>Image Link Address</Form.Label>
+          <Form.Control
+            onChange={imageChangeHandler}
+            value={enteredImage}
+            type="text"
+            placeholder="Image URL"
+			required
           />
         </Form.Group>
         <Button variant="primary" type="submit">
