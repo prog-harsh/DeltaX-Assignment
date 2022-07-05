@@ -4,9 +4,11 @@ import AddSong from "./components/AddSong";
 import SongLists from "./components/SongLists";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/NavBar";
+import "./App.css";
 
 const App = () => {
   const [isHome, setIsHome] = useState(true);
+  const [isData, setIsData] = useState(false);
   const [songs, setSongs] = useState([]);
   const [filteredSong, setFilteredSong] = useState(songs);
 
@@ -15,6 +17,7 @@ const App = () => {
       const res = await axios.get("/api");
       setSongs(res.data);
       setFilteredSong(res.data);
+      setIsData(true);
       console.log(res.data);
     }
 
@@ -37,7 +40,13 @@ const App = () => {
   return (
     <>
       <NavBar onClickHandler={onAddSongClick} onSubmit={onSearchSubmit} />
-      {isHome && <SongLists songs={filteredSong} />}
+      {!isData ? (
+        <div className="center_fetching">
+          <h3>Fetching Data Please wait..</h3>
+        </div>
+      ) : (
+        isHome && <SongLists songs={filteredSong} />
+      )}
       {!isHome && <AddSong />}
     </>
   );
