@@ -43,9 +43,7 @@ const App = () => {
       {!isData ? (
         <div className="center_fetching">
           <h3>Fetching data...</h3>
-		  <div>
-		  <h5>(Please check your internet connection)</h5>
-		  </div>
+		  <h5>Please check your internet connection</h5>
         </div>
       ) : (
         isHome && <SongLists songs={filteredSong} />
