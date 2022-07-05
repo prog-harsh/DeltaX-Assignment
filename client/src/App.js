@@ -42,7 +42,10 @@ const App = () => {
       <NavBar onClickHandler={onAddSongClick} onSubmit={onSearchSubmit} />
       {!isData ? (
         <div className="center_fetching">
-          <h3>Fetching Data Please wait..</h3>
+          <h3>Fetching data...</h3>
+		  <div>
+		  <h5>(Please check your internet connection)</h5>
+		  </div>
         </div>
       ) : (
         isHome && <SongLists songs={filteredSong} />
